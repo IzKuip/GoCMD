@@ -4,19 +4,26 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+
+	"github.com/fatih/color"
 )
 
 var scanner *bufio.Scanner
+var errOutp error
+var command string
 
 func main() {
 	scanner = bufio.NewScanner(os.Stdin)
 
-	clrScrn()
+ 	//clrScrn()
 
-	fmt.Printf("Welcome to %s, the next generation of %s!\n", dispColor("GoCMD",Magenta), dispColor("NetCMD",Teal))
+	fmt.Printf("Welcome to %s, the next generation of %s!\n", color.Magenta("GoCMD"), dispColor("NetCMD", Teal))
 
 	for true {
-		fmt.Println(question("input: "))
+		path, err := os.Getwd()
+		errOutp = err
+		fmt.Printf("%s",path)
+		command = question("\n" + dispColor("$ ",DarkGray))
 	}
 }
 
@@ -43,5 +50,6 @@ const (
 	Magenta      = "\033[1;35m"
 	Teal         = "\033[1;36m"
 	White        = "\033[1;37m"
+	DarkGray	 = "\033[1;90m"
 	DefaultColor = "\033[0m"
 )
